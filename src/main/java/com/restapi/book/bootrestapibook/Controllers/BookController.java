@@ -36,12 +36,14 @@ public class BookController {
     //@GetMapping("/books") -> this can be written
     //public List<Book> getBooks(){
     public ResponseEntity<List<Book>> getBooks(){
+        
         // Book book = new Book();
         // book.setId(1);
         // book.setTitle("Learning SpringBootRestAPI");
         // book.setAuthor("LearnCodeWithDurgesh");
 
         List<Book> list = bookService.getAllBooks();
+
         if(list.size()<=0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -77,7 +79,7 @@ public class BookController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        return b;
+        // return b;
     }
 
     @DeleteMapping("/books/{id}")
@@ -90,8 +92,8 @@ public class BookController {
     @PutMapping("books/{id}")
     public Book updateBook(@PathVariable("id") int id, @RequestBody Book book) {
         //TODO: process PUT request
-        Book b = bookService.updateBook(book,id);
+        bookService.updateBook(book,id);
 
-        return b;
+        return book;
     }
 }

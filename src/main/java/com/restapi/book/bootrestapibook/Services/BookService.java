@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 import com.restapi.book.bootrestapibook.Entities.Book;
-import com.restapi.book.bootrestapibook.dao.BookRepository;
+// import com.restapi.book.bootrestapibook.dao.BookRepository;
 
 @Component //@Service can also be used
 public class BookService {
@@ -22,7 +22,6 @@ public class BookService {
 
     }
 
-
     //Using springBoot JPA
     // private BookRepository bookRepository;
 
@@ -32,13 +31,17 @@ public class BookService {
         
         return list;
     }
-
+                                                                                                          
     //get single book by id
     public Book getBookById(int id){
 
+        Book myBook = null;
         //Using Stream API
         try{
-            Book myBook =  list.stream().filter(e -> e.getId()==id).findFirst().get();
+            myBook = list.stream()     
+                        .filter(e -> e.getId()==id)
+                        .findFirst()
+                        .get();
         }
         catch(Exception e){
 
@@ -65,7 +68,7 @@ public class BookService {
     }
 
     //Update the book
-    public Book updateBook(Book book, int id){
+    public void updateBook(Book book, int id){
 
         list = list.stream()
                     .map(b -> {
@@ -75,13 +78,13 @@ public class BookService {
                             b.setTitle(book.getTitle());
                             b.setAuthor(book.getAuthor());
                         }
-                        return book;
+                        return b;
                     })
                     .collect(Collectors.toList());
             
         // .filter(book -> book.getId() == id)
             
         
-            return book;
+        // return book;
     } 
 }
